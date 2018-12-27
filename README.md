@@ -1,5 +1,5 @@
 
-# Acessor
+# Accessor
 Header only, fully template based library which enables accessing private data members. Techniques used by this library to achieve its  purpose are fully legal and allowed by the standard. 
 The library is based on __Explicit instantiation__ of __class template instantion__.
 
@@ -11,7 +11,7 @@ The article describing implementation of this technique can be find [Here](https
 
 First reference to this technique is in [Johannes Schaub - litb blog](http://bloglitb.blogspot.com/2010/07/access-to-private-members-thats-easy.html?m=1)
 
-Herb Sutter [GotW blog post](http://www.gotw.ca/gotw/076.htm) why in general you should not access private members. Be wise and don't try to break things if u don't have to!
+Herb Sutter [GotW blog post](http://www.gotw.ca/gotw/076.htm) why in general you should not access private members. Be wise and don't try to break things if you don't have to!
 
 ## Motivation
 
@@ -22,18 +22,27 @@ In situations like that provided technique is far better than common `#define pr
 ## Installation
 
 Installation is done using CMake
-```
+```sh
 mkdir build
 cd build
 cmake ..
 make && make install
 ```
 
+## Importing Accessor as a target
+
+Installed Accessor library can be easily imported by any CMake based project
+```cmake
+find_package(accessor REQUIRED)
+# ...
+target_link_libraries(${exec_name} accessor)
+```
+
 ## Building examples
 
 There is set of mini [examples](https://github.com/hliberacki/cpp-member-accessor/tree/master/examples), which shows how various data members and methods can be accessed. To build them, the additional CMake flag shall be passed.
 
-```
+```sh
 cmake -DEXAMPLES=1 ..
 make
 ```
@@ -42,7 +51,7 @@ make
 
 There is set of [tests](https://github.com/hliberacki/cpp-member-accessor/tree/master/tests) using only CMake [CTest](https://cmake.org/cmake/help/v3.0/manual/ctest.1.html).
 
-```
+```sh
 make test
 ```
 ## Usage
@@ -93,7 +102,7 @@ using TestFooBar = ::accessor::MemberWrapper<Test, int>;
 template class ::accessor::MakeProxy<TestFooBar, &Test::mFooBar>;
 ```
 
-`MakProxy` takes as parameters `<CreatedType, MemberAddress>`
+`MakeProxy` takes as parameters `<CreatedType, MemberAddress>`
 
 After those steps we can simply call private `foo` method of class `Test`
 
